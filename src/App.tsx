@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UsersContext } from 'contexts/UsersContext';
-import Router from "./components/Router";
+import Router from 'components/Router';
 
 function App() {
     const [users, setUsers] = useState<any[] | null>(null);
