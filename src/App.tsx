@@ -1,15 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import Search from 'components/search';
-import './App.css';
+import React, { useState } from 'react';
+import { UsersContext } from 'contexts/UsersContext';
+import Router from "./components/Router";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Seach />
-      </header>
-    </div>
+    const [users, setUsers] = useState<any[] | null>(null);
+
+    return (
+      <UsersContext.Provider value={[users, setUsers]}>
+          <Router />
+      </UsersContext.Provider>
   );
 }
 
