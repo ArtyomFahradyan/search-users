@@ -1,5 +1,5 @@
 import React from 'react';
-import 'styles'
+import './styles.css'
 
 function Results () {
     return <div>results</div>;
