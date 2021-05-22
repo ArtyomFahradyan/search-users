@@ -1,19 +1,24 @@
 import React, {useEffect, useState, ChangeEvent, useContext } from 'react';
 import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core/'
 import fetchUsers from 'services/FetchUsersService';
+import debounce from 'helpers/debounceHelper';
 import { UsersContext } from 'contexts/UsersContext';
 import './styles.css'
 
 function Search () {
-    const [ _, setUsers ] = useContext(UsersContext);
+    const [ _, setUsers, pagination ] = useContext(UsersContext);
     const [ search, setSearch ] = useState('');
     useEffect(() => {
         const searchUser = async () => {
-            const res = await fetchUsers(search);
+            const res = await fetchUsers({
+                login: search,
+                page: pagination?.page || 1,
+                per_page: pagination?.rowsPerPage || 10
+            });
             setUsers(res.items);
         }
         searchUser();
-    }, [search])
+    }, [search, pagination])
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.currentTarget.value);
