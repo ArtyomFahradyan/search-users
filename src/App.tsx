@@ -3,15 +3,10 @@ import { UsersContext } from 'contexts/UsersContext';
 import Router from 'components/Router';
 
 function App() {
-    const [users, setUsers] = useState<any[] | null>(null);
-    const [pagination, setPagination] = useState({
-        page: 1,
-        rowsPerPage: 10
-    });
-
+    const [search, setSearch] = useState('');
 
     return (
-      <UsersContext.Provider value={[users, setUsers, pagination, setPagination]}>
+      <UsersContext.Provider value={[search, setSearch]}>
           <Router />
       </UsersContext.Provider>
   );

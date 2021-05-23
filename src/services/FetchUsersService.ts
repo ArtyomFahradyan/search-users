@@ -15,9 +15,10 @@ async function fetchUsers(
       fetchOptions?: RequestInit;
     }) {
     const res =  await fetchHelper(
-        `https://api.github.com/search/users?q=${query.login}&page${query.page}&per_page${query.per_page}`,
+        `https://api.github.com/search/users?q=${query.login}&page${query.page}&per_page=${query.per_page}`,
         options
     );
+
     return await res.json();
 }
 
