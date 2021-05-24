@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useContext } from 'react';
 import { FormControl, InputLabel, makeStyles, OutlinedInput } from '@material-ui/core/'
 import { UsersContext } from 'contexts/UsersContext';
-import './styles.css'
 
 const useStyles = makeStyles({
     wrapper: {

@@ -1,21 +1,24 @@
 import React, { Suspense, lazy } from 'react';
 import { Router as ReactRouter, Switch, Route, } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import Home from 'pages/home';
-import NotFound from 'components/NotFound';
+import Loading from 'components/Loading';
+const Home = lazy(() => import('pages/home'));
+const NotFound = lazy(() => import('components/NotFound'));
 
 const history = createBrowserHistory();
 
 function Router() {
     return (
-        <ReactRouter history={history}>
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route exact component={NotFound} />
-            </Switch>
-        </ReactRouter>
+        <Suspense fallback={<Loading />}>
+            <ReactRouter history={history}>
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route exact component={NotFound} />
+                </Switch>
+            </ReactRouter>
+        </Suspense>
     );
 }
 

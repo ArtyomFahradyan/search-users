@@ -11,16 +11,16 @@ import {
     makeStyles,
     Snackbar,
     Button,
-    IconButton
+    IconButton,
+    Avatar
 } from '@material-ui/core';
 import fetchUsers from 'services/FetchUsersService';
 import debounce from 'helpers/debounceHelper';
 import { rowsPerPageOptions } from 'constants/tableConstatnts';
 import { UsersContext } from 'contexts/UsersContext';
 import EmptyBox from 'assets/icons/empty-box.png';
-import './styles.css'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
@@ -35,43 +35,46 @@ const useStyles = makeStyles({
         marginTop: '20px',
         fontSize: 'x-large'
     },
+    avatar: {
+        width: theme.spacing(3),
+        height: theme.spacing(3)
+    },
     wrapper: {
         padding: '25px 100px 50px 100px',
         justifyContent: 'center',
         alignItems: 'center',
         display: 'flex'
     },
-});
+}));
 
 function Results () {
     const classes = useStyles();
     const [search] = useContext(UsersContext);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [total, setTotal] = useState(0);
     const [users, setUsers] = useState<any[]>([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [errorMessage, setErrorMessage] = React.useState('');
-    // const searchUser = useRef(
-    //     debounce(async (login: string) => {
-    //
-    //     }, 500)
-    // );
-    useEffect(() => {
-        const a = async () => {
+
+    const searchUser = useRef(
+        debounce(async (login: string, per_page: number, newPage: number) => {
+            if (!login) return;
             try {
-                console.log(555555);
                 const res = await fetchUsers({
-                    per_page: rowsPerPage,
-                    login: search,
-                    page
+                    per_page,
+                    login,
+                    page: newPage
                 });
                 setUsers(res.items);
                 setTotal(res.total_count);
             } catch (err) {
                 setErrorMessage(err.message);
             }
-        }
-        a();
+        }, 500)
+    );
+
+    useEffect(() => {
+        searchUser.current(search, rowsPerPage, page);
     }, [search, page, rowsPerPage])
 
     const handleChangePage = (_: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -96,15 +99,15 @@ function Results () {
             {users?.map((row) => (
                 <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
-                        {row.avatar_url}
+                        <Avatar className={classes.avatar} src={row.avatar_url} />
                     </TableCell>
-                    <TableCell align="right">{row.login}</TableCell>
-                    <TableCell align="right">{row.type}</TableCell>
+                    <TableCell>{row.login}</TableCell>
+                    <TableCell>{row.type}</TableCell>
                 </TableRow>
             ))}
         </TableBody>
     );
-    console.log(errorMessage);
+
     return (
         <div className={classes.wrapper}>
             {users?.length ?
@@ -112,9 +115,9 @@ function Results () {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Avatar url</TableCell>
-                                <TableCell align="right">Login</TableCell>
-                                <TableCell align="right">Type</TableCell>
+                                <TableCell>Avatar</TableCell>
+                                <TableCell>Login</TableCell>
+                                <TableCell>Type</TableCell>
                             </TableRow>
                         </TableHead>
                         {renderBody()}
@@ -140,7 +143,7 @@ function Results () {
                     horizontal: 'left',
                 }}
                 open={Boolean(errorMessage)}
-                autoHideDuration={2000}
+                autoHideDuration={3000}
                 onClose={handleClose}
                 message={errorMessage}
                 action={
