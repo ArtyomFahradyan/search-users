@@ -1,7 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Button } from '@material-ui/core';
-import { useHistory } from "react-router-dom";
-import  NotFoundSVG from 'assets/icons/not-found.png';
+import  NotFoundIcon from 'assets/icons/not-found.png';
 
 const useStyles = makeStyles({
     table: {
@@ -36,7 +36,7 @@ function NotFound() {
     return (
         <div className={classes.wrapper}>
             <div className={classes.subWrapper}>
-                <img src={NotFoundSVG} alt="Icon" />
+                <img src={NotFoundIcon} alt="Icon" />
                 <div className={classes.text}>Page Not Found</div>
                 <Button className={classes.button} variant="contained" color="primary" onClick={handleGoHome}>
                     Go Home

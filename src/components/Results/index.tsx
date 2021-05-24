@@ -11,7 +11,6 @@ import {
     makeStyles,
     Snackbar,
     Button,
-    IconButton,
     Avatar
 } from '@material-ui/core';
 import fetchUsers from 'services/fetchUsersService';
@@ -139,7 +138,7 @@ function Results () {
             }
             <Snackbar
                 anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'left',
                 }}
                 open={Boolean(errorMessage)}
@@ -154,13 +153,6 @@ function Results () {
                             onClick={(e) => handleClose(e)}>
                             UNDO
                         </Button>
-                        <IconButton
-                            size="small"
-                            aria-label="close"
-                            color="inherit"
-                            onClick={(e) => handleClose(e)}>
-                            X
-                        </IconButton>
                     </React.Fragment>
                 }
             />
