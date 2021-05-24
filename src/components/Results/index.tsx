@@ -14,7 +14,7 @@ import {
     IconButton,
     Avatar
 } from '@material-ui/core';
-import fetchUsers from 'services/FetchUsersService';
+import fetchUsers from 'services/fetchUsersService';
 import debounce from 'helpers/debounceHelper';
 import { rowsPerPageOptions } from 'constants/tableConstatnts';
 import { UsersContext } from 'contexts/UsersContext';

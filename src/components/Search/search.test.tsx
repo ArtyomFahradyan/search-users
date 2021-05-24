@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Search from './index';
 
-test('renders search component text', () => {
+test('renders search component', () => {
     render(<Search />);
-    const linkElement = screen.getByText(/Page Not Found/i);
-    expect(linkElement).toBeInTheDocument();
+    const searchInput = screen.getByTestId('required-input');
+    expect(searchInput).toBeInTheDocument();
 });

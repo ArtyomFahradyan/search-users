@@ -4,6 +4,6 @@ import NotFound from './index';
 
 test('renders page not found text', () => {
     render(<NotFound />);
-    const linkElement = screen.getByText(/Page Not Found/i);
-    expect(linkElement).toBeInTheDocument();
+    const text = screen.getByText(/Page Not Found/i);
+    expect(text).toBeInTheDocument();
 });

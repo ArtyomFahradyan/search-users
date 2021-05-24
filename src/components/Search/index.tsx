@@ -22,10 +22,11 @@ function Search () {
     return (
         <div className={classes.wrapper}>
             <FormControl fullWidth variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-amount">Users</InputLabel>
+                <InputLabel htmlFor="search-users">Users</InputLabel>
                 <OutlinedInput
+                    data-testid="required-input"
                     name="search"
-                    id="outlined-adornment-amount"
+                    id="search-users"
                     onChange={handleSearch}
                     labelWidth={60}
                 />
